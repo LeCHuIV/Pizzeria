@@ -1,27 +1,26 @@
 ﻿@page "/Menu"
 
-<div class="main">
-    <ul class="pizza-cards">
-        @if (Pizze != null)
+
+<div class="row">
+    @if (Pizze != null)
+    {@foreach (var pizza in Pizze)
         {
-            @foreach (var pizza in Pizze)
-            {
-                <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
-                    <div class="card-header">
-                        <h3>@pizza.Nazwa</h3>
-                    </div>
-                    <img class="card-img-top imageThumbnail" src="@pizza.Img" />
-                    <div class="card-footer text-center">
-                        <a>@pizza.Opis</a>
-                        <br>
-                        <a href="#" class="btn btn-primary m-1">Dodaj do zamówienia</a>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="card-title">@pizza.Nazwa</h5>
+                        <img class="card-img-top imageThumbnail" src="@pizza.Img" />
+                        <p class="card-text">@pizza.Opis</p>
+                        <a href="#" class="btn btn-primary">Dodaj do zamówniea</a>
+
                     </div>
                 </div>
-
-            }
+            </div>
         }
-    </ul>
+    }
 </div>
+
 @code {
     List<Pizza> Pizze = File.ReadAllLines("Dane.csv")
                                        .Skip(1)
