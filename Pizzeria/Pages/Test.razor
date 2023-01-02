@@ -2,10 +2,7 @@
 
 <div class="main">
     <ul class="pizza-cards">
-        @if (Pizze != null)
-        {
-            @foreach (var pizza in Pizze)
-            {
+
                 <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
                     <div class="card-header">
                         <h3>test</h3>
@@ -16,15 +13,5 @@
 
                     </div>
                 </div>
-
-            }
-        }
     </ul>
 </div>
-@code {
-    List<Pizza> Pizze = File.ReadAllLines("Dane.csv")
-                                       .Skip(1)
-                                       .Select(v => Pizza.FromCsv(v))
-                                       .ToList();
-
-}
