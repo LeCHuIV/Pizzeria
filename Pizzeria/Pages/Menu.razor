@@ -1,20 +1,20 @@
 ﻿@page "/Menu"
+@using System.Text;
+@using Pizzeria.Shared;
 
 
-<div class="row">
+<div class="card-columns">
     @if (Pizze != null)
-    {@foreach (var pizza in Pizze)
+    {@foreach (Pizza pizza in Pizze)
         {
-            <div class="col-sm-3">
-                <div class="card">
-                    <div class="card-body">
+            <div class="card">
+                <img class="card-img-top" src="@pizza.Img" alt="Card image cap">
+                <div class="card-body">
 
-                        <h5 class="card-title">@pizza.Nazwa</h5>
-                        <img class="card-img-top imageThumbnail" src="@pizza.Img" />
-                        <p class="card-text">@pizza.Opis</p>
-                        <a href="#" class="btn btn-primary">Dodaj do zamówniea</a>
+                    <h5 class="card-title">@pizza.Nazwa</h5>
+                    <p class="card-text">@pizza.Opis</p>
+                    <a href="#" class="btn btn-primary" @onclick="(() => Metody.DodanieDoZamowienia(pizza))">Dodaj do zamówienia</a>
 
-                    </div>
                 </div>
             </div>
         }
@@ -23,8 +23,26 @@
 
 @code {
     List<Pizza> Pizze = File.ReadAllLines("Dane.csv")
-                                       .Skip(1)
-                                       .Select(v => Pizza.FromCsv(v))
-                                       .ToList();
+                                           .Skip(1)
+                                           .Select(v => Pizza.FromCsv(v))
+                                           .ToList();
 
+    public Zamowienia Dodaj(Pizza pizza)
+    {
+
+        Zamowienia zamowienie = new Zamowienia();
+        string path = @"C:\Studia\Magisterka\Semestr 3\Czysty kod\Pizzeria2\Pizzeria\Pizzeria\Zamowienie.csv";
+        if (!File.Exists(path)){
+             string createText = "Numer Zamówienia;Data złożenia zamówienia;Wartość";
+            File.WriteAllText(path, createText);
+        }
+        String[] csv = File.ReadAllLines(path);
+        zamowienie.Wartosc += pizza.Cena;
+        zamowienie.Czas = DateTime.Now;
+        csv.Append($"{zamowienie.Numer};{zamowienie.Czas};{zamowienie.Wartosc}");
+        File.WriteAllLines(path, csv);
+
+        return zamowienie;
+
+    }
 }
