@@ -18,5 +18,8 @@
   <ItemGroup>
     <Folder Include="Api\" />
   </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\SqlData\SqlData.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pizzeria", "Pizzeria\Pizzeria.csproj", "{DBC2880A-65E5-4C21-A524-0459D8EE3DD4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlData", "SqlData\SqlData.csproj", "{691F8024-B922-4AD0-BBF3-30D36CB0B218}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DBC2880A-65E5-4C21-A524-0459D8EE3DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBC2880A-65E5-4C21-A524-0459D8EE3DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBC2880A-65E5-4C21-A524-0459D8EE3DD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691F8024-B922-4AD0-BBF3-30D36CB0B218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691F8024-B922-4AD0-BBF3-30D36CB0B218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691F8024-B922-4AD0-BBF3-30D36CB0B218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691F8024-B922-4AD0-BBF3-30D36CB0B218}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

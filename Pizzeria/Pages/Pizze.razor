@@ -1,0 +1,49 @@
+﻿@page "/Data/Pizze"
+@using SqlData
+@using SqlData.Modele
+
+@inject IPizze _db
+
+<h1>Pizze</h1>
+
+
+<h4>Aktualne Dostępne Pizze</h4>
+@if (pizze is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Cena</th>
+                <th>Opis</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pizza in pizze)
+            {
+                <tr>
+
+                    <td>@pizza.Nazwa</td>
+                    <td>@pizza.Cena</td>
+                    <td>@pizza.Opis</td>
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+
+}
+
+@code {
+    private List<SqlData.Modele.Pizza> pizze;
+
+    protected override async Task OnInitializedAsync()
+    {
+        pizze = await _db.GetPizzas();
+    }
+}
