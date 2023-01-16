@@ -23,8 +23,8 @@ namespace SqlData
         }
         public Task DodajPizze(Pizza pizza)
         {
-            string sql = @"insert into pizze (ID,Nazwa, Cena,Opis,ImageUrl)
-                        values(@ID,@Nazwa, @Cena,@Opis,@ImageUrl);";
+            string sql = @"insert into pizze (ID,Name, Price,Description,ImageUrl)
+                        values(@ID,@Name, @Price,@Description,@ImageUrl);";
             return Db.SaveData(sql, pizza);
         }
     }

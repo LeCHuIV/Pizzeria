@@ -9,9 +9,9 @@ namespace SqlData.Modele
     public class Pizza
     {
         public int ID { get; set; }
-        public string Nazwa { get; set; }
-        public double Cena { get; set; }
-        public string Opis { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public string Description { get; set; }
         public string IMG { get; set; }
     }
 }
