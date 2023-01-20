@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SqlData
 {
-    public class Pizze : IPizze
+    public class PizzeSQL : IPizzeSQL
     {
         private ISqlDataAccess Db { get; }
-        public Pizze(ISqlDataAccess db)
+        public PizzeSQL(ISqlDataAccess db)
         {
             Db = db;
         }
@@ -21,7 +21,7 @@ namespace SqlData
             string sql = "select * from pizze";
             return Db.LoadData<Pizza, dynamic>(sql, new { });
         }
-        public Task DodajPizze(Pizza pizza)
+        public Task AddPizza(Pizza pizza)
         {
             string sql = @"insert into pizze (ID,Name, Price,Description,ImageUrl)
                         values(@ID,@Name, @Price,@Description,@ImageUrl);";

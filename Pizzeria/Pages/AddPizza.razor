@@ -1,0 +1,55 @@
+﻿@page "/pizzas"
+
+@using SqlData;
+@using SqlData.Modele;
+
+<h1>Pizzas</h1>
+
+<form onsubmit="@AddPizza">
+    <input type="text" placeholder="Name" @bind-value="Pizza.Name" />
+    <input type="text" placeholder="Price" @bind-value="Pizza.Price" />
+    <input type="text" placeholder="Description" @bind-value="Pizza.Description" />
+    <input type="text" placeholder="Img" @bind-value="Pizza.IMG" />
+    <button type="submit">Add Pizza</button>
+</form>
+
+@if (Pizzas != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>ImageUrl</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pizza in Pizzas)
+            {
+                <tr>
+                    <td>@pizza.Name</td>
+                    <td>@pizza.Price</td>
+                    <td>@pizza.Description</td>
+                    <td>@pizza.IMG</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private PizzaSQL Pizza { get; set; } = new PizzaSQL();
+    private List<PizzaSQL> Pizzas { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Pizzas = await SqlData.PizzeSQL.GetPizzas();
+    }
+
+    private async Task AddPizza()
+    {
+        await SqlData.PizzeSQL.AddPizza(Pizza);
+        Pizzas = await Pizze.GetPizzas();
+    }
+}

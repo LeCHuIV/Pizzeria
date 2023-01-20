@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Pizzeria.Data;
 using SqlData;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
-builder.Services.AddTransient<IPizze, Pizze>();
+builder.Services.AddTransient<IPizzeSQL, PizzeSQL>();
 
 var app = builder.Build();
 

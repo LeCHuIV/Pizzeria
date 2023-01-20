@@ -1,13 +1,13 @@
-﻿@page "/Data/Pizze"
+﻿@page "/Data/PizzeSQL"
 @using SqlData
 @using SqlData.Modele
 
-@inject IPizze _db
+@inject IPizzeSQL _db
 
 <h1>Pizze</h1>
 
 
-<h4>Aktualne Dostępne Pizze</h4>
+<h4>Current Available Pizzas</h4>
 @if (pizze is null)
 {
     <p><em>Loading...</em></p>
@@ -40,7 +40,7 @@ else
 }
 
 @code {
-    private List<SqlData.Modele.Pizza> pizze;
+    private List<SqlData.Modele.PizzaSQL> pizze;
 
     protected override async Task OnInitializedAsync()
     {

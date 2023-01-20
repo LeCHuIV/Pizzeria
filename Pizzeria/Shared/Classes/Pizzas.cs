@@ -1,6 +1,6 @@
-﻿namespace Pizzeria.Shared
+﻿namespace Pizzeria.Shared.Classes
 {
-    public class Pizza
+    public class Pizzas
     {
         public int ID { get; set; }
         public string Name { get; set; }
