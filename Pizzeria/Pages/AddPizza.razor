@@ -5,12 +5,12 @@
 @using SqlData.Modele;
 @inject IPizzeSQL _db
 
-<h1>Insert New Pizza</h1>
+<h1>Dodaj pizze</h1>
 <EditForm Model="@newPizza" OnValidSubmit="@InsertPizza">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputTextArea id="Name" @bind-Value="newPizza.Name" />
+    <InputTextArea id="Name" @bind-Value="newPizza.Name"/>
     <InputNumber id="Price" @bind-Value="newPizza.Price" />
     <InputTextArea id="Description" @bind-Value="newPizza.Description" />
     <InputTextArea id="Img" @bind-Value="newPizza.Img"/>

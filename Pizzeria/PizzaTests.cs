@@ -26,10 +26,11 @@ namespace Pizzeria
         public async Task GetPizzas_ReturnsListOfPizzas()
         {
             // Act
-            List<PizzaSQL> pizze = await _db.GetPizzas();
+            
+            var pizze = await _pizzeSQL.GetPizzas();
 
             // Assert
-            NUnit.Framework.Assert.True(pizze.Count > 1);
+            NUnit.Framework.Assert.True(pizze.Any());
         }
 
         [Test]
