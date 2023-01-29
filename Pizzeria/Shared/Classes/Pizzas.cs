@@ -1,8 +1,11 @@
-﻿namespace Pizzeria.Shared
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Pizzeria.Shared.Classes
 {
-    public class Pizza
+    public class Pizzas
     {
         public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }

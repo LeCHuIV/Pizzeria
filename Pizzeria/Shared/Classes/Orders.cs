@@ -1,6 +1,6 @@
-﻿namespace Pizzeria.Shared
+﻿namespace Pizzeria.Shared.Classes
 {
-    public class Zamowienia
+    public class Orders
     {
         public int Number { get; set; }
         public DateTime Time { get; set; }
