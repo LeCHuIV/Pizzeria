@@ -1,19 +1,24 @@
-﻿@page "/pizzas"
+﻿@page "/addpizza"
 
+@using Pizzeria.Shared.Classes;
 @using SqlData;
 @using SqlData.Modele;
+@inject IPizzeSQL _db
 
-<h1>Pizzas</h1>
+<h1>Insert New Pizza</h1>
+<EditForm Model="@newPizza" OnValidSubmit="@InsertPizza">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-<form onsubmit="@AddPizza">
-    <input type="text" placeholder="Name" @bind-value="Pizza.Name" />
-    <input type="text" placeholder="Price" @bind-value="Pizza.Price" />
-    <input type="text" placeholder="Description" @bind-value="Pizza.Description" />
-    <input type="text" placeholder="Img" @bind-value="Pizza.IMG" />
-    <button type="submit">Add Pizza</button>
-</form>
+    <InputTextArea id="Name" @bind-Value="newPizza.Name" />
+    <InputNumber id="Price" @bind-Value="newPizza.Price" />
+    <InputTextArea id="Description" @bind-Value="newPizza.Description" />
+    <InputTextArea id="Img" @bind-Value="newPizza.Img"/>
+    <button type="submit" class="btn-primary">Submit</button>
+</EditForm>
 
-@if (Pizzas != null)
+<h4>Current Pizzas</h4>
+@if (pizze != null)
 {
     <table>
         <thead>
@@ -25,13 +30,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var pizza in Pizzas)
+            @foreach (var pizza in pizze)
             {
                 <tr>
                     <td>@pizza.Name</td>
                     <td>@pizza.Price</td>
                     <td>@pizza.Description</td>
-                    <td>@pizza.IMG</td>
+                    <td>@pizza.ImageUrl</td>
                 </tr>
             }
         </tbody>
@@ -39,17 +44,27 @@
 }
 
 @code {
-    private PizzaSQL Pizza { get; set; } = new PizzaSQL();
-    private List<PizzaSQL> Pizzas { get; set; }
+    private Pizzas newPizza = new Pizzas();
+    private List<SqlData.Modele.PizzaSQL> pizze;
 
     protected override async Task OnInitializedAsync()
     {
-        Pizzas = await SqlData.PizzeSQL.GetPizzas();
+        pizze = await _db.GetPizzas();
     }
 
-    private async Task AddPizza()
+    private async void InsertPizza()
     {
-        await SqlData.PizzeSQL.AddPizza(Pizza);
-        Pizzas = await Pizze.GetPizzas();
+        PizzaSQL p = new PizzaSQL
+            {
+                Name = newPizza.Name,
+                Price = newPizza.Price,
+                Description = newPizza.Description,
+                ImageUrl = newPizza.Img
+            };
+        await _db.AddPizza(p);
+
+        pizze.Add(p);
+        newPizza = new Pizzas();
     }
+
 }

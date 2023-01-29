@@ -15,13 +15,13 @@ namespace SqlData
             Db = db;
         }
 
-        public Task<List<Pizza>> GetPizzas()
+        public Task<List<PizzaSQL>> GetPizzas()
         {
 
             string sql = "select * from pizze";
-            return Db.LoadData<Pizza, dynamic>(sql, new { });
+            return Db.LoadData<PizzaSQL, dynamic>(sql, new { });
         }
-        public Task AddPizza(Pizza pizza)
+        public Task AddPizza(PizzaSQL pizza)
         {
             string sql = @"insert into pizze (ID,Name, Price,Description,ImageUrl)
                         values(@ID,@Name, @Price,@Description,@ImageUrl);";

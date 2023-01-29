@@ -14,28 +14,20 @@
 }
 else
 {
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Nazwa</th>
-                <th>Cena</th>
-                <th>Opis</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var pizza in pizze)
-            {
-                <tr>
-
-                    <td>@pizza.Name</td>
-                    <td>@pizza.Price</td>
-                    <td>@pizza.Description</td>
-                </tr>
-            }
-        </tbody>
-
-
-    </table>
+   <div class="card-deck">
+    @foreach (var pizza in pizze)
+    {
+    <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+        <div class="card-header">
+            <h3>@pizza.Name Cena @pizza.Price</h3>
+        </div>
+        <img class="card-img-top imageThumbnail" src="@pizza.ImageUrl" />
+        <div class="card-footer text-center">
+                    <h3>Opis @pizza.Description</h3>
+        </div>
+    </div>
+    }
+</div>
 
 }
 

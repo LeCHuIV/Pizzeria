@@ -4,7 +4,7 @@ namespace SqlData
 {
     public interface IPizzeSQL
     {
-        Task AddPizza(Pizza pizza);
-        Task<List<Pizza>> GetPizzas();
+        Task AddPizza(PizzaSQL pizza);
+        Task<List<PizzaSQL>> GetPizzas();
     }
 }

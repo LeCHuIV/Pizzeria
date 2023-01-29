@@ -1,55 +1,49 @@
-﻿using Microsoft.AspNetCore.Routing;
-using NuGet.ContentModel;
+﻿using NUnit.Framework;
+using NSubstitute;
 using SqlData.Modele;
 using SqlData;
-using NUnit.Framework;
-using NSubstitute;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Pizzeria
 {
-    public class PizzaTests
+    [TestFixture]
+    public class PizzeSQLTests
     {
-
-        private PizzeSQL _service;
-        private SqlDataAccess _db;
+        private PizzeSQL _pizzeSQL;
+        private ISqlDataAccess _mockDb;
+        private PizzeSQL _db;
 
         [SetUp]
-        public void Setup()
+        public void SetUp()
         {
-            _db = Substitute.For<SqlDataAccess>();
-            _service = new PizzeSQL(_db);
+            _mockDb = Substitute.For<ISqlDataAccess>();
+            _pizzeSQL = new PizzeSQL(_mockDb);
         }
 
         [Test]
-        public async Task AddPizza_Should_Insert_Pizza_To_Db()
+        public async Task GetPizzas_ReturnsListOfPizzas()
         {
-            // Arrange
-            Pizza pizza = new Pizza() { ID = 1, Name = "Pepperoni", Price = 15, Description = "Spicy pizza with pepperoni and mozzarella cheese", IMG = "http://example.com/pepperoni.jpg" };
-
             // Act
-            await _service.AddPizza(pizza);
+            List<PizzaSQL> pizze = await _db.GetPizzas();
 
             // Assert
-            _db.Received(1).SaveData(Arg.Any<string>(), pizza);
+            NUnit.Framework.Assert.True(pizze.Count > 1);
         }
 
         [Test]
-        public async Task GetPizzas_Should_Return_All_Pizzas_From_Db()
+        public async Task AddPizza_AddsPizzaToDb()
         {
             // Arrange
-            var pizzas = new List<Pizza>()
-        {
-            new Pizza() { ID = 1, Name = "Pepperoni", Price = 15, Description = "Spicy pizza with pepperoni and mozzarella cheese", IMG = "http://example.com/pepperoni.jpg" },
-            new Pizza() { ID = 2, Name = "Margherita", Price = 12, Description = "Classic pizza with tomato sauce, mozzarella cheese and basil", IMG = "http://example.com/margherita.jpg" },
-        };
-            _db.LoadData<Pizza, dynamic>(Arg.Any<string>(), Arg.Any<dynamic>()).Returns(pizzas);
+            var pizza = new PizzaSQL { ID = 1, Name = "Margherita", Price = 10.99m, Description = "Tomato sauce, mozzarella cheese and basil", ImageUrl = "https://example.com/margherita.jpg" };
 
             // Act
-            var result = await _service.GetPizzas();
+            await _pizzeSQL.AddPizza(pizza);
 
             // Assert
-            _db.Received(1).LoadData<Pizza, dynamic>(Arg.Any<string>(), Arg.Any<dynamic>());
-            Assert.AreEqual(result, pizzas);
+            await _mockDb.Received().SaveData(Arg.Any<string>(), pizza);
         }
     }
+
 }
