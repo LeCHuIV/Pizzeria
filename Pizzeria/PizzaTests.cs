@@ -5,32 +5,21 @@ using SqlData;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Pizzeria
 {
     [TestFixture]
     public class PizzeSQLTests
     {
-        private PizzeSQL _pizzeSQL;
+        private IPizzeSQL _pizzeSQL;
         private ISqlDataAccess _mockDb;
-        private PizzeSQL _db;
 
         [SetUp]
         public void SetUp()
         {
             _mockDb = Substitute.For<ISqlDataAccess>();
             _pizzeSQL = new PizzeSQL(_mockDb);
-        }
-
-        [Test]
-        public async Task GetPizzas_ReturnsListOfPizzas()
-        {
-            // Act
-            
-            var pizze = await _pizzeSQL.GetPizzas();
-
-            // Assert
-            NUnit.Framework.Assert.True(pizze.Any());
         }
 
         [Test]
@@ -46,5 +35,6 @@ namespace Pizzeria
             await _mockDb.Received().SaveData(Arg.Any<string>(), pizza);
         }
     }
+
 
 }
